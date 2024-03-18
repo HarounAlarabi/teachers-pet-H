@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/appendices.css";
 function Appendices({ appendixData }) {
+  const [isOpen, setIsOpen] = useState(true);
   if (!appendixData?.details) {
     return null;
   }
@@ -9,39 +10,54 @@ function Appendices({ appendixData }) {
 
   return (
     <div>
-      <table className="table appendixTable">
-        <tbody>
-          <tr className="appendixTitle">
-            <th colSpan="4">
-              <span>{type}</span>
-            </th>
-          </tr>
-          {details.map((detail, detailIndex) => (
-            <React.Fragment key={detailIndex}>
-              <tr className="appendixTitle">
-                <h4>{detail.subsection}</h4>
-              </tr>
-              <tr>
-                <h4 className="appendixTitle">{detail.title}</h4>
-              </tr>
-              <tr>
-                {detail.description && <td colSpan="2">{detail.description}</td>}
-                {detail.measurement && <td colSpan="2">{detail.measurement}</td>}
-              </tr>
-              {Array.isArray(detail.considerations) &&
-                detail.considerations.map((con, conIndex) => (
-                  <tr key={conIndex}>
-                    <td colSpan="4" className="note">
-                      <li>{con}</li>
-                    </td>
-                  </tr>
-                ))}
-            </React.Fragment>
-          ))}
-        </tbody>
-      </table>
+      <OpenButton isOpen={isOpen} setIsOpen={setIsOpen} />
+      {isOpen && (
+        <table className="table appendixTable">
+          <tbody>
+            <tr className="appendixTitle">
+              <th colSpan="4">
+                <span>{type}</span>
+              </th>
+            </tr>
+            {details.map((detail, detailIndex) => (
+              <React.Fragment key={detailIndex}>
+                <tr className="appendixTitle">
+                  <h4>{detail.subsection}</h4>
+                </tr>
+                <tr>
+                  <h4 className="appendixTitle">{detail.title}</h4>
+                </tr>
+                <tr>
+                  {detail.description && (
+                    <td colSpan="2">{detail.description}</td>
+                  )}
+                  {detail.measurement && (
+                    <td colSpan="2">{detail.measurement}</td>
+                  )}
+                </tr>
+                {Array.isArray(detail.considerations) &&
+                  detail.considerations.map((con, conIndex) => (
+                    <tr key={conIndex}>
+                      <td colSpan="4" className="note">
+                        <li>{con}</li>
+                      </td>
+                    </tr>
+                  ))}
+              </React.Fragment>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 }
 
 export default Appendices;
+
+function OpenButton({ setIsOpen, isOpen }) {
+  return (
+    <button onClick={() => setIsOpen(!isOpen)}>
+      {isOpen ? "close" : "Appendix"}
+    </button>
+  );
+}
