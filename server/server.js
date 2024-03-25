@@ -18,6 +18,10 @@ const expressPort = process.env.PORT || 5000;
 app.listen(expressPort, () =>
   console.log(`Listening on expressPort ${expressPort}`)
 );
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+}
+);
 
 const getQandA = require("./getQandA");
 const fetchPupilData = require("./fetchPupilData");
