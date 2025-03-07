@@ -2,6 +2,7 @@ const client = require("./db-client");
 
 const validateUser = (req, res) => {
   const { teacherUsername, teacherPassword } = req.body;
+  console.log("Attempting query with username:", teacherUsername);
 
   client
     .query(
@@ -21,7 +22,7 @@ const validateUser = (req, res) => {
       }
     })
 
-   .catch((error) => {
+    .catch((error) => {
       res.status(502).json({
         result: "failure",
         message: "Failed to login",
