@@ -5,8 +5,15 @@ require("dotenv").config();
 
 const app = express();
 let cors = require("cors");
-app.use(cors());
-
+//app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000", // Frontend URL
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -35,6 +42,7 @@ app.get("/getQandA", getQandA);
 app.post("/fetch-pupil-data", fetchPupilData);
 app.delete("/delete-pupil", deletePupil);
 app.post("/restore-pupil", restorePupil);
+app.options("/login", cors());
 app.post("/login", validateUser);
 app.post("/save-user-form-input", saveUserFormInput);
 app.post("/get-pupil-record", getPupilRecord);

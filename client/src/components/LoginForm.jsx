@@ -2,12 +2,12 @@ import "../styles/LoginForm.css";
 import React, { useState } from "react";
 import LoginButton from "./LoginButton";
 import { useNavigate } from "react-router-dom";
-
+import { API_URL } from "./serverUrl";
 function LoginForm() {
   const apiURL =
-    process.env.REACT_APP_DEV_URL || "https://teachers-pet.onrender.com";
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+    process.env.REACT_APP_DEV_URL || "https://teachers-pet-h.onrender.com";
+  const [username, setUsername] = useState("haroun");
+  const [password, setPassword] = useState("1234");
   const [usernameError, setUsernameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [validationError, setValidationError] = useState("");
@@ -49,6 +49,7 @@ function LoginForm() {
           setIsLoading(false);
           return response.json().then((data) => {
             if (data) {
+              console.error(data);
               setValidationError(data.message);
             } else {
               setValidationError(
@@ -64,6 +65,7 @@ function LoginForm() {
           navigate("/landingPage", {
             state: { teacherID: data.teacherID, teacherUsername: username },
           });
+
           return data.teacherID;
         } else {
           console.error("ID could not be found.");

@@ -3,13 +3,15 @@ import { Link, useLocation } from "react-router-dom";
 import "../styles/LandingPage.css";
 import PupilRow from "./PupilRow";
 import TableHeaderRow from "./TeacherHeaderRow";
+import { API_URL } from "./serverUrl";
 
 function LandingPage() {
   const location = useLocation();
   const teacherID = location.state.teacherID;
   const teacherUsername = location.state.teacherUsername;
   const [pupils, setPupils] = useState([]);
-  const apiURL = process.env.REACT_APP_DEV_URL || "https://teacher-server-9cir.onrender.com";
+  const apiURL =
+    process.env.REACT_APP_DEV_URL || "https://teachers-pet-h.onrender.com";
   const [sortColumn, setSortColumn] = useState(null);
   const [sortOrder, setSortOrder] = useState("asc");
 
@@ -36,7 +38,9 @@ function LandingPage() {
   }, [teacherID, apiURL]);
 
   const deletePupil = (pupilId) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this pupil Record?");
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this pupil Record?"
+    );
     if (confirmDelete) {
       fetch(`${apiURL}/delete-pupil`, {
         method: "DELETE",
@@ -49,14 +53,16 @@ function LandingPage() {
           if (!response.ok) {
             throw new Error("Network response was not ok");
           }
-          setPupils((prevPupils) => prevPupils.filter((pupil) => pupil.pupil_id !== pupilId));
+          setPupils((prevPupils) =>
+            prevPupils.filter((pupil) => pupil.pupil_id !== pupilId)
+          );
         })
         .catch((error) => {
           console.error("Error deleting pupil:", error);
         });
     }
   };
-  
+
   const handleSort = (column) => {
     if (column === sortColumn) {
       setSortOrder(sortOrder === "asc" ? "desc" : "asc");
@@ -94,7 +100,11 @@ function LandingPage() {
       ) : (
         <table className="pupil-table">
           <thead>
-            <TableHeaderRow onSort={handleSort} sortColumn={sortColumn} sortOrder={sortOrder} />
+            <TableHeaderRow
+              onSort={handleSort}
+              sortColumn={sortColumn}
+              sortOrder={sortOrder}
+            />
           </thead>
           <tbody>
             {sortedPupils.map((pupil) => (
@@ -114,4 +124,3 @@ function LandingPage() {
 }
 
 export default LandingPage;
-
