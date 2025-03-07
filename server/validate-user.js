@@ -27,7 +27,6 @@ const validateUser = (req, res) => {
         result: "failure",
         message: "Failed to login",
       });
-      client.end();
     });
 };
 
