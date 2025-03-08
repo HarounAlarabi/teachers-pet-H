@@ -42,20 +42,18 @@
 
 const express = require("express");
 const app = express();
-let cors = require("cors");
+const cors = require("cors");
 
-const whiteList = ["http://localhost:3000"];
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (whiteList.indexOf(origin) !== -1 || !origin) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-  })
-);
+//const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
+app.use(cors({ origin: "http://localhost:3000" }));
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
