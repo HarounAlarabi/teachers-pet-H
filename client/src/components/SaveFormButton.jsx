@@ -1,5 +1,3 @@
-import { API_URL } from "./serverUrl";
-
 function SaveFormButton({
   selectedAnswers,
   comments,
@@ -13,15 +11,16 @@ function SaveFormButton({
   saveMessage,
   setSaveMessage,
 }) {
-  const apiURL =
-    process.env.REACT_APP_DEV_URL || "https://teachers-pet-h.onrender.com";
   const endPoint = "/save-user-form-input";
   const formSubmission = {};
 
   function saveUserInput() {
     const dateTime = new Date();
     const formattedDateTime = dateTime.toLocaleString();
-
+    const API_URL_Local = "http://localhost:5000";
+    const API_SERVER_URL = "https://teachers-pet-h.onrender.com";
+    const API_URL =
+      process.env.NODE_ENV === "development" ? API_URL_Local : API_SERVER_URL;
     setSaveMessage(`Case successfully saved on ${formattedDateTime}`);
 
     formSubmission.pupilID = pupilID;
@@ -40,7 +39,7 @@ function SaveFormButton({
       }
     );
 
-    fetch(`${apiURL}${endPoint}`, {
+    fetch(`${API_URL}${endPoint}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -3,20 +3,23 @@ import { Link, useLocation } from "react-router-dom";
 import "../styles/LandingPage.css";
 import PupilRow from "./PupilRow";
 import TableHeaderRow from "./TeacherHeaderRow";
-import { API_URL } from "./serverUrl";
 
 function LandingPage() {
   const location = useLocation();
   const teacherID = location.state.teacherID;
   const teacherUsername = location.state.teacherUsername;
   const [pupils, setPupils] = useState([]);
-  const apiURL =
-    process.env.REACT_APP_DEV_URL || "https://teachers-pet-h.onrender.com";
+
   const [sortColumn, setSortColumn] = useState(null);
   const [sortOrder, setSortOrder] = useState("asc");
 
+  const API_URL_Local = "http://localhost:5000";
+  const API_SERVER_URL = "https://teachers-pet-h.onrender.com";
+  const API_URL =
+    process.env.NODE_ENV === "development" ? API_URL_Local : API_SERVER_URL;
+
   useEffect(() => {
-    fetch(`${apiURL}/fetch-pupil-data`, {
+    fetch(`${API_URL}/fetch-pupil-data`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,14 +38,14 @@ function LandingPage() {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, [teacherID, apiURL]);
+  }, [teacherID]);
 
   const deletePupil = (pupilId) => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this pupil Record?"
     );
     if (confirmDelete) {
-      fetch(`${apiURL}/delete-pupil`, {
+      fetch(`${API_URL}/delete-pupil`, {
         method: "DELETE",
         body: JSON.stringify({ pupilID: pupilId }),
         headers: {

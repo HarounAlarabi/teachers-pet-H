@@ -2,10 +2,8 @@ import "../styles/LoginForm.css";
 import React, { useState } from "react";
 import LoginButton from "./LoginButton";
 import { useNavigate } from "react-router-dom";
-import { API_URL } from "./serverUrl";
+
 function LoginForm() {
-  const apiURL =
-    process.env.REACT_APP_DEV_URL || "https://teachers-pet-h.onrender.com";
   const [username, setUsername] = useState("haroun");
   const [password, setPassword] = useState("1234");
   const [usernameError, setUsernameError] = useState("");
@@ -14,6 +12,10 @@ function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
+  const isDev = window.location.hostname === "localhost";
+  const API_URL = isDev
+    ? "http://localhost:5000"
+    : "https://teachers-pet-h.onrender.com";
 
   const handleValidateUser = (event) => {
     event.preventDefault();
@@ -32,7 +34,7 @@ function LoginForm() {
       setPasswordError("Enter a password");
     }
 
-    fetch(`${apiURL}/login`, {
+    fetch(`${API_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -3,13 +3,14 @@ import { useLocation } from "react-router-dom";
 import ShowResult from "./ShowResult";
 import appendices from "./data/appendices.json";
 import Appendices from "./Appendices";
-import { API_URL } from "./serverUrl";
 
 function Form() {
-  const apiURL =
-    process.env.REACT_APP_DEV_URL || "https://teachers-pet-h.onrender.com";
+  const API_URL_Local = "http://localhost:5000";
+  const API_SERVER_URL = "https://teachers-pet-h.onrender.com";
+  const API_URL =
+    process.env.NODE_ENV === "development" ? API_URL_Local : API_SERVER_URL;
   const endPoint = "/getQandA";
-  const dataUrl = `${apiURL}${endPoint}`;
+  const dataUrl = `${API_URL}${endPoint}`;
   const location = useLocation();
   const teacherUsername = location.state.teacherUsername;
   const [questions, setQuestions] = useState([]);
@@ -33,8 +34,8 @@ function Form() {
 
   const pupilRecordEndPoint = "/get-pupil-record";
   const pupilAnswersEndPoint = "/get-pupil-answers";
-  const pupilRecordURL = `${apiURL}${pupilRecordEndPoint}`;
-  const pupilAnswersURL = `${apiURL}${pupilAnswersEndPoint}`;
+  const pupilRecordURL = `${API_URL}${pupilRecordEndPoint}`;
+  const pupilAnswersURL = `${API_URL}${pupilAnswersEndPoint}`;
 
   const [populator, setPopulator] = useState(false);
 
