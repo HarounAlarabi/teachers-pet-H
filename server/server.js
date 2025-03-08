@@ -42,22 +42,12 @@
 
 const express = require("express");
 const app = express();
-const cors = require("cors");
+let cors = require("cors");
 
-//const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
 app.use(cors({ origin: "http://localhost:3000" }));
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Define all routes here
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
@@ -87,7 +77,6 @@ const getPupilAnswers = require("./get-pupil-answers");
 app.post("/get-pupil-answers", getPupilAnswers);
 
 const expressPort = process.env.PORT || 5000;
-
 app.listen(expressPort, () =>
   console.log(` Listening on expressPort ${expressPort} `)
 );
