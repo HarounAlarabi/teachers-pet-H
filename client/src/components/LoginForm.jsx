@@ -12,10 +12,8 @@ function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
-  const isDev = window.location.hostname === "localhost";
-  const API_URL = isDev
-    ? "http://localhost:5000"
-    : "https://teachers-pet-h.onrender.com";
+
+  const API_URL = "https://teachers-pet-h.onrender.com";
 
   const handleValidateUser = (event) => {
     event.preventDefault();
