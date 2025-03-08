@@ -13,7 +13,7 @@ function LoginForm() {
 
   const navigate = useNavigate();
 
-  const API_URL = "https://teachers-pet-h.onrender.com";
+  //const API_URL = "https://teachers-pet-h.onrender.com";
 
   const handleValidateUser = (event) => {
     event.preventDefault();
@@ -32,7 +32,7 @@ function LoginForm() {
       setPasswordError("Enter a password");
     }
 
-    fetch(`${API_URL}/login`, {
+    fetch("https://teachers-pet-h.onrender.com/login", {
       method: "POST",
       credentials: "include",
       headers: {

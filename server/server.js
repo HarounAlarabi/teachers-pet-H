@@ -47,9 +47,13 @@ let cors = require("cors");
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://teachers-pet-h.onrender.com",
+];
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: allowedOrigins,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
