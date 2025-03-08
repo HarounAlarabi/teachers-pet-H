@@ -33,6 +33,8 @@ function LoginForm() {
     }
 
     fetch(`${API_URL}/login`, {
+      mode: "cors",
+      credentials: "include",
       method: "POST",
       headers: {
         "Content-Type": "application/json",
