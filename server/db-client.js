@@ -17,12 +17,4 @@ client
   .then(() => {
     console.log("Connected to PostgreSQL!");
 
-    return client.query("SELECT NOW()");
-  })
-  .then((result) => {
-    console.log("Database test query result:", result.rows[0]);
-  })
-  .catch((err) => {
-    console.error("Database connection failed:", err.message);
-    process.exit(1);
-  });
+
