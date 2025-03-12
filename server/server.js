@@ -49,7 +49,7 @@ app.use(express.urlencoded({ extended: false }));
 
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://teachers-pet-h.onrender.com",
+  "https://teachers-pet-server.onrender.com",
 ];
 app.use(
   cors({
