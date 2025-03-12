@@ -1,7 +1,7 @@
 const client = require("./db-client");
 
 const saveUserFormInput = (req, res) => {
-  const { formSubmission } = req.body;
+  const { formSubmission } = req.body || {};
   const {
     teacherID,
     pupilID,
