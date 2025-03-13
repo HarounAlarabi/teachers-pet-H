@@ -1,7 +1,43 @@
-.sortable-header {
-cursor: pointer;
-color: blue;
+.data-grid-header {
+  background: #f8f9fa;
 }
-.sortable-header:hover {
-  text-decoration: underline;
+
+.grid-column-header {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: #495057;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.sortable-column {
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.sortable-column:hover {
+  background: #f1f3f5;
+}
+
+.column-header-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sort-direction-indicator {
+  color: #6c757d;
+  font-size: 0.8em;
+  margin-left: auto;
+}
+
+.interactive {
+  position: relative;
+}
+
+.interactive:after {
+  content: "";
+  position: absolute;
+  right: 0.5rem;
+  opacity: 0.5;
 }

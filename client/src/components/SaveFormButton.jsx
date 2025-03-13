@@ -1,3 +1,5 @@
+import { BASE_API_URL } from "../api/config";
+
 function SaveFormButton({
   selectedAnswers,
   comments,
@@ -13,14 +15,10 @@ function SaveFormButton({
 }) {
   const endPoint = "/save-user-form-input";
   const formSubmission = {};
-
   function saveUserInput() {
     const dateTime = new Date();
     const formattedDateTime = dateTime.toLocaleString();
-    const API_URL_Local = "http://localhost:5000";
-    const API_SERVER_URL = "https://teachers-pet-h.onrender.com";
-    const API_URL =
-      process.env.NODE_ENV === "development" ? API_URL_Local : API_SERVER_URL;
+
     setSaveMessage(`Case successfully saved on ${formattedDateTime}`);
 
     formSubmission.pupilID = pupilID;
@@ -38,9 +36,11 @@ function SaveFormButton({
         };
       }
     );
+    console.log("Sending form submission:", { formSubmission });
 
-    fetch(`${API_URL}${endPoint}`, {
+    fetch(`${BASE_API_URL}${endPoint}`, {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -62,7 +62,7 @@ function SaveFormButton({
 
   return (
     <div>
-      <button className="saveBtn" onClick={saveUserInput}>
+      <button className="primary-btn icon-btn" onClick={saveUserInput}>
         Save
       </button>
     </div>

@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import "../styles/LandingPage.css";
 import PupilRow from "./PupilRow";
 import TableHeaderRow from "./TeacherHeaderRow";
+import { BASE_API_URL } from "../api/config";
 
 function LandingPage() {
   const location = useLocation();
@@ -12,40 +13,53 @@ function LandingPage() {
 
   const [sortColumn, setSortColumn] = useState(null);
   const [sortOrder, setSortOrder] = useState("asc");
-
-  const API_URL_Local = "http://localhost:5000";
-  const API_SERVER_URL = "https://teachers-pet-h.onrender.com";
-  const API_URL =
-    process.env.NODE_ENV === "development" ? API_URL_Local : API_SERVER_URL;
+  const [setError] = useState(null);
 
   useEffect(() => {
-    fetch(`${API_URL}/fetch-pupil-data`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ teacherID }),
-    })
-      .then((response) => {
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${BASE_API_URL}/fetch-pupil-data`, {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ teacherID }),
+          signal,
+        });
+
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          const errorData = await response.json();
+          throw new Error(errorData.message || "Failed to fetch pupil data");
         }
-        return response.json();
-      })
-      .then((data) => {
+
+        const data = await response.json();
         setPupils(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, [teacherID]);
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          console.error("Fetch error:", error);
+          // Add error state handling:
+          setError(error.message);
+        }
+      }
+    };
+
+    if (teacherID) {
+      fetchData();
+    }
+
+    return () => controller.abort();
+  }, [teacherID, setError]);
 
   const deletePupil = (pupilId) => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this pupil Record?"
     );
     if (confirmDelete) {
-      fetch(`${API_URL}/delete-pupil`, {
+      fetch(`${BASE_API_URL}/delete-pupil`, {
         method: "DELETE",
         body: JSON.stringify({ pupilID: pupilId }),
         headers: {
@@ -93,13 +107,19 @@ function LandingPage() {
   });
 
   return (
-    <div>
-      <h1 className="caseloadHeader">{teacherUsername}'s Caseload</h1>
-      <Link to="/form" state={{ teacherUsername, teacherID }}>
-        <h2>New Support Allocation Form</h2>
+    <div className="container">
+      <h1 className="caseloadHeader">{teacherUsername}&apos;s Caseload</h1>
+
+      <Link
+        to="/form"
+        state={{ teacherUsername, teacherID }}
+        className="new-form-link"
+      >
+        Create New Support Allocation
       </Link>
+
       {pupils.length === 0 ? (
-        <p>No pupil records to display .</p>
+        <div className="empty-state">No pupil records to display</div>
       ) : (
         <table className="pupil-table">
           <thead>

@@ -25,51 +25,94 @@ function PrintResult({
     window.scrollTo(0, window.scrollY + 200);
   }, []);
   return (
-    <div id="tableAndContentToPrint">
-      <div id="pageBorder"></div>
-      <h3 className="result-title">Vision Impairment Support Allocation </h3>
-      <table id="tableToPrint" className="table result close-after-last-question">
-        <div className="resultHeader">
-          <p>Teacher Name: {teacherName}</p>
-          <p>Pupil Name: {pupilName}</p>
-          <p>Date: {printDate}</p>
+    <div id="tableAndContentToPrint" className="form-card print-container">
+      <div className="page-border"></div>
+
+      <h3 className="form-title result-title">
+        Vision Impairment Support Allocation
+      </h3>
+
+      <div className="result-content">
+        <div className="result-header">
+          <div className="result-meta-group">
+            <p className="result-meta">
+              <span className="meta-label">Teacher Name:</span>
+              <span className="meta-value">{teacherName}</span>
+            </p>
+            <p className="result-meta">
+              <span className="meta-label">Pupil Name:</span>
+              <span className="meta-value">{pupilName}</span>
+            </p>
+            <p className="result-meta">
+              <span className="meta-label">Date:</span>
+              <span className="meta-value">{printDate}</span>
+            </p>
+          </div>
         </div>
-        <tbody>
+
+        <div className="questions-summary">
           {Object.keys(selectedAnswers).map((questionIndex) => {
             const question = questions[questionIndex];
             const answerId = selectedAnswers[questionIndex];
             const commentForAnswer = comments[questionIndex] || "";
+
             return (
-              <React.Fragment key={questionIndex}>
-                <div className={`${questionIndex / 5 === 0 && "pageBreak"} question-container`}>
-                  <tr className={`question`}>
-                    <td colSpan="12">
-                      <h3>
-                        Criterion {question.criterion_code}: {question.question_text}
-                      </h3>
-                    </td>
-                    <td className="score" colSpan="1">
-                      <h3 className="title">Score {question.answer_score}</h3>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td colSpan="12" className="answer-text">
-                      {answerId ? question.answers.find((ans) => ans.answer_id === answerId).answer_text : "N/A"}
-                    </td>
-                    <td className="score-n" rowSpan="2">
-                      <span className="title-score">
-                        {answerId ? question.answers.find((ans) => ans.answer_id === answerId).answer_score : "N/A"}
-                      </span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td colSpan="12">Teacher comment: {commentForAnswer}</td>
-                  </tr>
+              <div
+                key={questionIndex}
+                className={`question-container ${
+                  questionIndex % 5 === 0 ? "page-break" : ""
+                }`}
+              >
+                <div className="question-header">
+                  <h3 className="question-title">{question.question_text}</h3>
                 </div>
-              </React.Fragment>
+
+                <div className="answer-section">
+                  <div className="answer-content">
+                    <span className="answer-text">
+                      {answerId ? (
+                        question.answers.find(
+                          (ans) => ans.answer_id === answerId
+                        ).answer_text
+                      ) : (
+                        <span className="na-text">N/A</span>
+                      )}
+                    </span>
+                    <span className="answer-score">
+                      {answerId
+                        ? `(${
+                            question.answers.find(
+                              (ans) => ans.answer_id === answerId
+                            ).answer_score
+                          } pts)`
+                        : ""}
+                    </span>
+                  </div>
+
+                  <div className="comment-section">
+                    <span className="comment-label">Teacher comment:</span>
+                    {commentForAnswer || (
+                      <span className="no-comment">No comments provided</span>
+                    )}
+                  </div>
+                </div>
+
+                <div className="score-display">
+                  <span className="score-label">Score:</span>
+                  <span className="score-value">
+                    {answerId ? (
+                      question.answers.find((ans) => ans.answer_id === answerId)
+                        .answer_score
+                    ) : (
+                      <span className="na-text">N/A</span>
+                    )}
+                  </span>
+                </div>
+              </div>
             );
           })}
-        </tbody>
+        </div>
+
         <TeacherOverride
           totalScore={totalScore}
           setTotalScore={setTotalScore}
@@ -77,8 +120,9 @@ function PrintResult({
           setOverrideScore={setOverrideScore}
           overrideComment={overrideComment}
           setOverrideComment={setOverrideComment}
+          className="override-section"
         />
-      </table>
+      </div>
     </div>
   );
 }

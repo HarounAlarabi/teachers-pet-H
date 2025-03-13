@@ -1,55 +1,161 @@
-.summary {
-  background-color: #e1e9ea;
-  font-size: 2rem;
+.assessment-summary-container {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
 }
 
-.tr-spacer {
-  height: 1rem;
-}
-.inputField {
-  width: 100px;
-}
-.inputCell {
-  width: 10%;
-  margin: 0px auto;
-}
-.finalTable {
-  margin: 1em auto;
-  width: 95%;
-
-  background: #fff;
-  color: #024457;
-  border-radius: 10px;
-  border: 1px solid #167f92;
+.assessment-summary {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.finalTable td {
-  padding: 8px;
+.summary-header-row {
+  background: #f8f9fa;
 }
 
-.finalTable textarea {
+.summary-main-title {
+  padding: 1.5rem;
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.25rem;
+}
 
+.score-calculation-row {
+  border-bottom: 1px solid #e9ecef;
+}
+
+.calculation-label-cell {
+  padding: 1.5rem;
+  background: white;
+}
+
+.calculation-value-cell {
+  padding: 1.5rem;
+  text-align: right;
+  background: white;
+}
+
+.calculated-value {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.adjustment-content-wrapper {
+  padding: 1.5rem;
+}
+
+.section-main-heading {
+  color: #2c3e50;
+  margin: 0 0 1.5rem 0;
+  font-size: 1.1rem;
+}
+
+.adjustment-input-group {
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  gap: 2rem;
+  margin-top: 1.5rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.comment-input-section {
+  margin-bottom: 1rem;
+}
+
+.input-section-title {
+  color: #495057;
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.input-description {
+  color: #6c757d;
+  font-size: 0.8rem;
+  margin: 0 0 1rem 0;
+}
+
+.form-text-area {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  min-height: 100px;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.score-adjustment-control {
+  position: relative;
+  max-width: 200px;
+  width: 100%;
+}
+
+/* Input field styling */
+.score-input-field {
   width: 100%;
   box-sizing: border-box;
+  padding: 0.75rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 1rem;
+  text-align: right;
+  background: white;
+  transition: border-color 0.2s ease;
+
+  /* Remove default browser styling */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
 }
 
-.overRide {
-  width: 10%;
-  text-align: center !important;
+/* Focus state */
+.score-input-field:focus {
+  outline: none;
+  border-color: #4299e1;
+  box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.2);
 }
-.title {
-  text-align: center ;
+
+/* Remove number input spinners */
+.score-input-field::-webkit-outer-spin-button,
+.score-input-field::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.adjustment-input-group {
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  gap: 2rem;
+  align-items: start;
+}
+
+.allocation-details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.allocation-category-card,
+.allocation-detail-card {
+  padding: 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  background: #f8f9fa;
+}
+
+.allocation-type-label {
   display: block;
-  margin: 0px auto;
-  color: black;
+  color: #6c757d;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
 }
-.inputOverrideScore{
-  border: 0px;
-  width: 120px;
-  height: 50px;
-  background-color: #f7f7f8;
-  text-align: center;
-}
-.overrideCommentArea{
-  height: 6rem;
+
+.allocation-type-value {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #2c3e50;
 }

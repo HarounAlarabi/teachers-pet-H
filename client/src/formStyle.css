@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap");
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -15,7 +15,7 @@ body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
 }
-.formTitle {
+/* .formTitle {
   text-align: center;
 }
 .table {
@@ -46,12 +46,12 @@ h3 {
   font-size: 1.2em;
   margin-bottom: 10px;
   text-align: left;
-}
+} */
 
 /* Styling for table cells */
 
 /* Styling for questions */
-.question {
+/* .question {
   background-color: #e9ecef;
 }
 
@@ -65,7 +65,7 @@ h3 {
 }
 
 /* Adjustments for radio buttons and labels */
-.form-check-input {
+/* .form-check-input {
   margin-top: 0;
   transform: scale(1.5);
 }
@@ -80,16 +80,16 @@ td:last-child {
   border: 1px solid #e0e0e0;
   padding: 5px 15px;
   text-align: left;
-}
+} */
 
-.question h3 {
+/* .question h3 {
   margin: 0;
   color: #333;
   font-weight: 500;
-}
+} */
 
 /* Answer row styling */
-.answer {
+/* .answer {
   color: #555;
   font-weight: 400;
 }
@@ -191,10 +191,10 @@ td[colspan="2"] {
   outline: none !important;
   outline-width: 0 !important;
   user-select: none !important;
-}
+} */
 
 /* Responsive for tablets */
-@media (min-width: 576px) and (max-width: 767px) {
+/* @media (min-width: 576px) and (max-width: 767px) {
   .textField label {
     font-size: 18px;
     margin-left: 0px;
@@ -204,10 +204,10 @@ td[colspan="2"] {
   .textField input {
     padding: 5px;
   }
-}
+} */
 
 /* Responsive for larger screens */
-@media (min-width: 970px) {
+/* @media (min-width: 970px) {
   .inputField {
     flex-direction: row;
     justify-content: space-around;
@@ -220,5 +220,88 @@ td[colspan="2"] {
 
   .textField input {
     width: 260px;
+  }
+}  */
+
+/* For React component structure */
+/* Global Input Styles (outside table) */
+/* .form-container input:not(.readOnlyInput),
+.form-container textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background: #fff;
+  margin: 8px 0;
+} */
+
+/* Focus States */
+.form-container input:focus:not(.readOnlyInput),
+.form-container textarea:focus {
+  border-color: #167f92;
+  box-shadow: 0 0 8px rgba(22, 127, 146, 0.2);
+  outline: none;
+}
+
+/* Textarea Specific */
+.form-container textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Input Group Styling */
+.input-group {
+  margin-bottom: 1.5rem;
+}
+
+.input-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #024457;
+  font-weight: 500;
+}
+
+/* Date Input Specific */
+.date-input {
+  margin-left: 0; /* Remove previous margin */
+  max-width: 300px;
+}
+
+/* Readonly Inputs */
+.readOnlyInput {
+  background: #f8f9fa;
+  border-color: #e9ecef !important;
+  cursor: not-allowed;
+}
+
+/* Table-specific Inputs (preserve existing) */
+.table input,
+.table textarea {
+  width: 80%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 0;
+}
+
+/* Responsive Adjustments */
+@media (min-width: 768px) {
+  .form-container input:not(.readOnlyInput),
+  .form-container textarea {
+    max-width: 500px;
+  }
+
+  .input-group {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .input-label {
+    margin-bottom: 0;
+    text-align: right;
   }
 }

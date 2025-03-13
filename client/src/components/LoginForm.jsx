@@ -1,10 +1,10 @@
 import "../styles/LoginForm.css";
 import React, { useState } from "react";
-import LoginButton from "./LoginButton";
 import { useNavigate } from "react-router-dom";
+import { BASE_API_URL } from "../api/config";
 
 function LoginForm() {
-  const [username, setUsername] = useState("haroun");
+  const [username, setUsername] = useState("sam");
   const [password, setPassword] = useState("1234");
   const [usernameError, setUsernameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -12,8 +12,6 @@ function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
-
-  //const API_URL = "https://teachers-pet-h.onrender.com";
 
   const handleValidateUser = (event) => {
     event.preventDefault();
@@ -32,7 +30,7 @@ function LoginForm() {
       setPasswordError("Enter a password");
     }
 
-    fetch("https://teachers-pet-h.onrender.com/login", {
+    fetch(`${BASE_API_URL}/login`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -80,63 +78,83 @@ function LoginForm() {
   };
 
   return (
-    <>
-      <div className="login-container">
-        <div>
-          <h2 className="subheading">Support Allocation Form</h2>
-        </div>
-        <div className="content">
-          <div className="login--header">
-            <h2>Login</h2>
+    <div className="App">
+      <header className="App-header">{/* Keep existing header code */}</header>
+
+      <div className="auth-container">
+        <div className="login-card">
+          <div className="login-header">
+            <h2 className="form-title">
+              <span className="title-gradient">Secure Login</span>
+              <div className="title-underline"></div>
+            </h2>
+            <p className="form-subtitle">Access your evaluation dashboard</p>
           </div>
-          <form className="loginForm" action="#" onSubmit={handleValidateUser}>
-            <div className="center-align">
-              <span className="login--invalid">{validationError}</span>
+
+          <form className="login-form" onSubmit={handleValidateUser}>
+            <div className="form-group">
+              <div className="input-wrapper">
+                <i className="fas fa-user input-icon"></i>
+                <input
+                  type="text"
+                  id="username"
+                  className="form-input"
+                  placeholder="Educational ID"
+                  value={username}
+                  onChange={(e) => {
+                    setUsername(e.target.value);
+                    setUsernameError("");
+                    setValidationError("");
+                  }}
+                />
+              </div>
+              {usernameError && (
+                <div className="error-message">
+                  <i className="fas fa-exclamation-circle"></i> {usernameError}
+                </div>
+              )}
             </div>
-            <div className="field login--field">
-              <label htmlFor="username"></label>
-              <input
-                type="text"
-                required
-                id="username"
-                name="username"
-                onChange={(event) => {
-                  setUsername(event.target.value);
-                  setUsernameError("");
-                  setValidationError("");
-                }}
-                placeholder="Username"
-              />
-              <span className="fas fa-user"></span>
+
+            <div className="form-group">
+              <div className="input-wrapper">
+                <i className="fas fa-lock input-icon"></i>
+                <input
+                  type="password"
+                  id="password"
+                  className="form-input"
+                  placeholder="Authentication Key"
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    setPasswordError("");
+                    setValidationError("");
+                  }}
+                />
+              </div>
+              {passwordError && (
+                <div className="error-message">
+                  <i className="fas fa-exclamation-circle"></i> {passwordError}
+                </div>
+              )}
             </div>
-            <div className="left-align">
-              <span className="login--invalid">{usernameError}</span>
-            </div>
-            <div className="field login--field">
-              <label htmlFor="password"></label>
-              <input
-                type="password"
-                required
-                id="password"
-                name="password"
-                onChange={(event) => {
-                  setPassword(event.target.value);
-                  setPasswordError("");
-                  setValidationError("");
-                }}
-                placeholder="Password"
-              />
-              <span className="fas fa-lock"></span>
-            </div>
-            <div className="left-align">
-              <span className="login--invalid">{passwordError}</span>
-            </div>
-            <LoginButton handleValidateUser={handleValidateUser} />
-            <div> {isLoading ? <p>Loading... Please Wait</p> : null}</div>
+
+            <button type="submit" className="login-button" disabled={isLoading}>
+              {isLoading ? (
+                <div className="dual-ring-spinner"></div>
+              ) : (
+                "Verify Credentials"
+              )}
+            </button>
+
+            {validationError && (
+              <div className="form-feedback error">
+                <i className="fas fa-shield-exclamation"></i> {validationError}
+              </div>
+            )}
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 export default LoginForm;

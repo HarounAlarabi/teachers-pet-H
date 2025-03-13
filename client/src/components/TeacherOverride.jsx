@@ -58,86 +58,107 @@ function TeacherOverride({
   }, [totalScore, overrideScore, supportCategory]);
 
   return (
-    <>
-      <table className="finalTable">
+    <div className="assessment-summary-container">
+      <table className="assessment-summary">
         <thead>
-          <tr className="summary">
+          <tr className="summary-header-row">
             <td colSpan="9">
-              <h3 className="title ">Summary</h3>
+              <h3 className="summary-main-title">Summary</h3>
             </td>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td colSpan="6">
-              <h3>CYP calculated score</h3>
+          {/* Score Calculation Row */}
+          <tr className="score-calculation-row">
+            <td colSpan="6" className="calculation-label-cell">
+              <h3 className="calculation-label">CYP calculated score</h3>
             </td>
-            <td colSpan="4">
-              <span className="title">{totalScore}</span>
+            <td colSpan="4" className="calculation-value-cell">
+              <span className="calculated-value">{totalScore}</span>
             </td>
           </tr>
-          <tr>
+
+          {/* Teacher Adjustment Section */}
+          <tr className="adjustment-section">
             <td colSpan="9">
-              <h2 className="title ">Teacher Adjustment</h2>
-              <div>
-                <SupportAllocationTable />
+              <div className="adjustment-content-wrapper">
+                <div className="adjustment-header">
+                  <h2 className="section-main-heading">Teacher Adjustment</h2>
+                  <SupportAllocationTable className="support-reference-table" />
+                </div>
+
+                <div className="adjustment-input-group">
+                  <div className="comment-input-section">
+                    <h4 className="input-section-title">
+                      Teacher Adjustment Comment
+                    </h4>
+                    <p className="input-description">
+                      Evidence underpinning any professional adjustment made to
+                      the CYP’s matrix support allocation
+                    </p>
+                    <textarea
+                      className="form-text-area"
+                      maxLength="255"
+                      value={overrideComment}
+                      onChange={(e) => setOverrideComment(e.target.value)}
+                    />
+                  </div>
+
+                  <div className="score-adjustment-control">
+                    <h4 className="adjustment-input-label">
+                      Teacher adjusted CYP total
+                    </h4>
+                    <input
+                      className="score-input-field"
+                      type="number"
+                      min="0"
+                      max="100"
+                      step="1"
+                      placeholder="0-100"
+                      value={overrideScore}
+                      onChange={(e) => {
+                        const inputValue = e.target.value;
+                        if (inputValue <= 100 || inputValue === "") {
+                          setOverrideScore(inputValue);
+                        }
+                      }}
+                      onBlur={(e) => {
+                        if (e.target.value === "") {
+                          setOverrideScore(0);
+                        }
+                      }}
+                    />
+                  </div>
+                </div>
               </div>
             </td>
           </tr>
-          <tr>
-            <td colSpan="6" className="override-comment">
-              <h4 className="comment title">Teacher Adjustment Comment</h4>
-              <span className="title">
-                Evidence underpinning any professional adjustment made to the CYP’s matrix support allocation
-              </span>
 
-              <textarea
-                className="overrideCommentArea"
-                maxLength="255"
-                value={overrideComment}
-                onChange={(e) => setOverrideComment(e.target.value)}
-              ></textarea>
-            </td>
-            <td colSpan="2" className="overRide">
-              <h4>Teacher adjusted CYP total</h4>
-            </td>
-            <td colSpan="1" className="inputCell">
-              <input
-                className="inputOverrideScore"
-                value={overrideScore}
-                onChange={(e) => {
-                  const inputValue = e.target.value;
-                  if (inputValue <= 100 || inputValue === "") {
-                    setOverrideScore(inputValue);
-                  }
-                }}
-              />
-            </td>
-          </tr>
-          <tr>
+          {/* Support Allocation Section */}
+          <tr className="support-section">
             <td colSpan="9">
-              <h2 className="title ">Support Allocation</h2>
-            </td>
-          </tr>
-          <tr>
-            <td colSpan="6" className="support-category">
-              <span className="comments"> Support Category</span>
-            </td>
-            <td colSpan="3">
-              <span className="title">{supportCategory}</span>
-            </td>
-          </tr>
-          <tr>
-            <td colSpan="6">
-              <h3>Support</h3>
-            </td>
-            <td colSpan="3">
-              <span className="title">{supportAllocation}</span>
+              <h2 className="section-main-heading">Support Allocation</h2>
+              <div className="allocation-details-grid">
+                <div className="allocation-category-card">
+                  <span className="allocation-type-label">
+                    Support Category
+                  </span>
+                  <span className="allocation-type-value">
+                    {supportCategory}
+                  </span>
+                </div>
+                <div className="allocation-detail-card">
+                  <h3 className="allocation-type-label">Support</h3>
+                  <span className="allocation-type-value">
+                    {supportAllocation}
+                  </span>
+                </div>
+              </div>
             </td>
           </tr>
         </tbody>
       </table>
-    </>
+    </div>
   );
 }
 export default TeacherOverride;

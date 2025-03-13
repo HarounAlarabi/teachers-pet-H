@@ -18,6 +18,7 @@ function ShowResult({
   setOverrideComment,
   overrideScore,
   setOverrideScore,
+  //validateForm,
 }) {
   const [showResults, setShowResults] = useState(false);
   const [totalScore, setTotalScore] = useState(0);
@@ -26,7 +27,10 @@ function ShowResult({
   const [saveMessage, setSaveMessage] = useState("");
 
   const handleShowResults = () => {
-    const unansweredQuestions = questions.map((_, index) => selectedAnswers[index]).some((answerId) => !answerId);
+    //if (!validateForm()) return;
+    const unansweredQuestions = questions
+      .map((_, index) => selectedAnswers[index])
+      .some((answerId) => !answerId);
 
     if (unansweredQuestions || pupilName === "") {
       setShowErrorMessage(true);
@@ -42,7 +46,9 @@ function ShowResult({
       const answerId = selectedAnswers[questionIndex];
       if (answerId) {
         const question = questions[questionIndex];
-        const answer = question.answers.find((ans) => ans.answer_id === answerId);
+        const answer = question.answers.find(
+          (ans) => ans.answer_id === answerId
+        );
         if (answer && answer.answer_score) {
           score += answer.answer_score;
         }
@@ -57,61 +63,81 @@ function ShowResult({
 
   return (
     <>
-      <div>
-        <div className="resultsBtn">
-          {showErrorMessage && (
-            <div className="error-msg">
-              Please ensure you have entered a pupil name and answered all above questions.
-            </div>
-          )}
-          <button type="button" className="btn btn-primary showResultBtn" onClick={handleShowResults}>
+      <div className="results-section">
+        {showErrorMessage && (
+          <div className="form-error">
+            <span className="error-icon">⚠️</span>
+            <p>
+              Please ensure you have entered a pupil name and answered all above
+              questions.
+            </p>
+          </div>
+        )}
+
+        <div className="form-actions">
+          <button
+            type="button"
+            className="primary-btn"
+            onClick={handleShowResults}
+          >
             Show Result
           </button>
         </div>
 
         {showResults && (
-          <>
-            <div id="print-content">
-              <PrintResult
+          <div id="print-content" className="printable-content">
+            <PrintResult
+              className="results-summary"
+              selectedAnswers={selectedAnswers}
+              questions={questions}
+              comments={comments}
+              teacherName={teacherName}
+              pupilName={pupilName}
+              date={date}
+              totalScore={totalScore}
+              setTotalScore={setTotalScore}
+              overrideScore={overrideScore}
+              setOverrideScore={setOverrideScore}
+              overrideComment={overrideComment}
+              setOverrideComment={setOverrideComment}
+            />
+
+            {saveMessage && (
+              <div className="form-status">
+                <span className="status-icon">✅</span>
+                <p className="status-message">{saveMessage}</p>
+              </div>
+            )}
+
+            <div className="action-group">
+              <SaveFormButton
+                className="secondary-btn"
                 selectedAnswers={selectedAnswers}
-                questions={questions}
                 comments={comments}
-                teacherName={teacherName}
+                teacherID={teacherID}
+                pupilID={pupilID}
+                setSavedPupilID={setSavedPupilID}
                 pupilName={pupilName}
                 date={date}
-                totalScore={totalScore}
-                setTotalScore={setTotalScore}
                 overrideScore={overrideScore}
-                setOverrideScore={setOverrideScore}
                 overrideComment={overrideComment}
-                setOverrideComment={setOverrideComment}
+                saveMessage={saveMessage}
+                setSaveMessage={setSaveMessage}
               />
-              <p className="saveMessage">{saveMessage}</p>
-              <div className="buttons-after-summary">
-                <SaveFormButton
-                  selectedAnswers={selectedAnswers}
-                  comments={comments}
-                  teacherID={teacherID}
-                  pupilID={pupilID}
-                  setSavedPupilID={setSavedPupilID}
-                  pupilName={pupilName}
-                  date={date}
-                  overrideScore={overrideScore}
-                  overrideComment={overrideComment}
-                  saveMessage={saveMessage}
-                  setSaveMessage={setSaveMessage}
-                />
-                <button className="printBtn" onClick={handlePrint}>
-                  Print
-                </button>
-                <BackToLandingPageButton
-                  teacherID={teacherID}
-                  teacherUsername={teacherName}
-                  setSaveMessage={setSaveMessage}
-                />
-              </div>
+
+              <button className="primary-btn icon-btn" onClick={handlePrint}>
+                <span className="btn-icon">🖨️</span>
+                Print Results
+              </button>
+
+              <BackToLandingPageButton
+                className="text-btn"
+                teacherID={teacherID}
+                teacherUsername={teacherName}
+                setSaveMessage={setSaveMessage}
+              />
             </div>
-          </>
+          </div>
         )}
       </div>
     </>

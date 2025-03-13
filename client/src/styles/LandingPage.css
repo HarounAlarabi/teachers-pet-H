@@ -1,31 +1,103 @@
-/* .new-form-title {
-  margin-top: 1rem;
-} */
+.caseloadHeader {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 2rem;
+  color: #2c3e50;
+  margin: 2rem 0;
+  padding: 1rem 0;
+  border-bottom: 3px solid #3498db;
+  text-align: center;
+  letter-spacing: -0.5px;
+}
+
+/* New Form Link */
+.new-form-link {
+  display: inline-block;
+  margin: 1.5rem 0;
+  padding: 0.8rem 1.5rem;
+  background-color: #3498db;
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.new-form-link:hover {
+  background-color: #2980b9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Table Styling */
 .pupil-table {
   width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 2rem 0;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .pupil-table th,
 .pupil-table td {
-  padding: 8px;
+  padding: 1rem 1.5rem;
   text-align: left;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #ecf0f1;
 }
 
 .pupil-table th {
-  background-color: #f2f2f2;
+  background-color: #f8f9fa;
+  color: #2c3e50;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+}
+
+.pupil-table tbody tr:last-child td {
+  border-bottom: none;
 }
 
 .pupil-table tbody tr:hover {
-  background-color: #f5f5f5;
+  background-color: #f8f9fa;
+  transition: background-color 0.2s ease;
 }
 
-.caseloadHeader {
-  margin:1rem auto;
-  border: 1px solid navy;
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 2rem;
+  color: #7f8c8d;
+  font-size: 1.1rem;
+  border: 2px dashed #bdc3c7;
   border-radius: 8px;
-  width: 20rem;
+  margin: 2rem 0;
+}
 
+/* Container Padding */
+.container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .pupil-table {
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .pupil-table th,
+  .pupil-table td {
+    padding: 0.75rem;
+  }
+
+  .caseloadHeader {
+    font-size: 1.5rem;
+    margin: 1.5rem 0;
+  }
 }
