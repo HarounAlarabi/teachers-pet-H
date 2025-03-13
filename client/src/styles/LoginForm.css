@@ -9,9 +9,10 @@
 }
 
 .auth-container {
-  max-width: 1200px;
+  max-width: 1000px;
+  min-width: 500px;
   margin: -4rem auto 0;
-  padding: 2rem;
+  padding: 1rem;
   position: relative;
   z-index: 1;
   overflow: hidden;
