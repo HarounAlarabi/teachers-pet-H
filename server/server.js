@@ -8,6 +8,7 @@ app.use(express.urlencoded({ extended: false }));
 const allowedOrigins = [
   "http://localhost:3000",
   "https://teachers-pet-server.onrender.com",
+  "https://mellow-marzipan-dc9e91.netlify.app"
 ];
 app.use(
   cors({
