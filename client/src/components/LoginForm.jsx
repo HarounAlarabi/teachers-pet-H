@@ -79,7 +79,7 @@ function LoginForm() {
 
   return (
     <div className="App">
-      <header className="App-header">{/* Keep existing header code */}</header>
+      <header className="App-header"></header>
 
       <div className="auth-container">
         <div className="login-card">
