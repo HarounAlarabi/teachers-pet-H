@@ -174,12 +174,15 @@ function Form() {
   };
 
   if (isLoading) {
-    return <div className="loading-spinner">Loading assessment form...</div>;
+    return (
+      <div className="dual-ring-spinner">
+        <span>Loading ...</span>
+      </div>
+    );
   }
 
   return (
     <div className="form-container">
-      {/* Input Section */}
       <div className="form-header">
         <div className="input-group">
           <label className="input-label">Teacher Name:</label>
