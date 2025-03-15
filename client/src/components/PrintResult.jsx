@@ -157,17 +157,6 @@ function PrintResult({
     });
   };
 
-  useEffect(() => {
-    // Print automatically when component mounts
-    window.print();
-
-    // Return to previous page after print
-    const afterPrint = () => window.history.back();
-    window.addEventListener("afterprint", afterPrint);
-
-    return () => window.removeEventListener("afterprint", afterPrint);
-  }, []);
-
   return (
     <div className="print-container">
       <div className="print-header">
@@ -200,11 +189,6 @@ function PrintResult({
             <div key={question.id} className="print-question">
               <div className="question-header">
                 <h3 className="question-text">{question.question_text}</h3>
-                {question.criterion_code && (
-                  <span className="criterion-code">
-                    {question.criterion_code}
-                  </span>
-                )}
               </div>
 
               {answer && (

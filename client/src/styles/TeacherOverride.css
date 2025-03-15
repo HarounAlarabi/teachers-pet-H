@@ -105,31 +105,21 @@
   background: white;
   transition: border-color 0.2s ease;
 
-  /* Remove default browser styling */
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: textfield;
 }
 
-/* Focus state */
 .score-input-field:focus {
   outline: none;
   border-color: #4299e1;
   box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.2);
 }
 
-/* Remove number input spinners */
 .score-input-field::-webkit-outer-spin-button,
 .score-input-field::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
-}
-
-.adjustment-input-group {
-  display: grid;
-  grid-template-columns: 1fr 200px;
-  gap: 2rem;
-  align-items: start;
 }
 
 .allocation-details-grid {

@@ -99,7 +99,6 @@ function Form() {
       if (!populator || !editPupilID) return;
 
       try {
-        // Fetch pupil record and answers in parallel
         const [recordResponse, answersResponse] = await Promise.all([
           fetch(pupilRecordURL, {
             method: "POST",
@@ -250,7 +249,7 @@ function Form() {
                       }
                       className="answer-radio"
                     />
-                    <div className="answer-content">
+                    <div className="answer-row">
                       <span className="answer-text">{answer.answer_text}</span>
                       <span className="answer-score">
                         ({answer.answer_score} pts)
